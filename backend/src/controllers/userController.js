@@ -1,4 +1,4 @@
-import { UserService } from "../services/userService";
+import { UserService } from "../services/userService.js";
 
 import { z } from "zod";
 

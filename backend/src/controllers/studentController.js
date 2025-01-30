@@ -1,4 +1,4 @@
-import { StudentService } from "../services/studentService";
+import { StudentService } from "../services/studentService.js";
 
 import { z } from "zod";
 

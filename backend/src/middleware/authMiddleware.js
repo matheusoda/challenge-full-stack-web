@@ -1,6 +1,5 @@
 // src/middleware/authMiddleware.ts
-import { Request, Response, NextFunction } from "express";
-import authService from "../services/authService"; // Importe o authService com a função verifyToken
+import authService from "../services/authService.js"; // Importe o authService com a função verifyToken
 
 export function authMiddleware(req, res, next) {
     const authHeader = req.headers.authorization;
