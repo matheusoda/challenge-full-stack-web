@@ -1,48 +1,31 @@
-const express = require('express');
-const Student = require('./models/Student');
+// src/routes/routes.ts
+import { Router } from "express";
 
-const router = express.Router();
+const router = Router();
 
-// Listar todos os alunos
-router.get('/students', async (req, res) => {
-    const students = await Student.findAll();
-    res.json(students);
-});
+import {
+    getUsers,
+    createUser,
+    updateUser,
+    deleteUser
+} from "./controllers/userController";
 
-// Criar aluno
-router.post('/students', async (req, res) => {
-    try {
-        const student = await Student.create(req.body);
-        res.status(201).json(student);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+import { login } from "./controllers/authController";
+import { authMiddleware } from "./middleware/authMiddleware";
 
-// Atualizar aluno
-router.put('/students/:id', async (req, res) => {
-    try {
-        const student = await Student.findByPk(req.params.id);
-        if (!student) return res.status(404).json({ error: 'Student not found' });
+// Rota de login
+router.post("/login", login);
 
-        await student.update(req.body);
-        res.json(student);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+// Rotas de usuarios
+router.get("/users", authMiddleware, getUsers);
+router.post("/users", authMiddleware, createUser);
+router.put("/users/:id", authMiddleware, updateUser);
+router.delete("/users/:id", authMiddleware, deleteUser);
 
-// Excluir aluno
-router.delete('/students/:id', async (req, res) => {
-    try {
-        const student = await Student.findByPk(req.params.id);
-        if (!student) return res.status(404).json({ error: 'Student not found' });
+// Rotas de estudantes
+router.get("/students", authMiddleware, getStudent);
+router.post("/students", authMiddleware, createStudent);
+router.put("/students/:id", authMiddleware, updateStudent);
+router.delete("/students/:id", authMiddleware, deleteStudent);
 
-        await student.destroy();
-        res.status(204).send();
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
-
-module.exports = router;
+export default router;
