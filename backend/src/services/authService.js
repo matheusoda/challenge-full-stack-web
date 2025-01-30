@@ -35,14 +35,21 @@ const authService = {
             expiresIn: "1h"
         });
 
-        return { token, userId: user.id, isAdmin: user.isAdmin };
+        return { 
+            token, 
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+        };
     },
 
     verifyToken(token) {
         try {
             // Verifica o token com a chave secreta
             const decoded = jwt.verify(token, secret);
-            return decoded; // Retorna os dados decodificados, como `userId` e `isAdmin`
+            return decoded; // Retorna os dados decodificados, como `userId`
         } catch (error) {
             // Lança erro caso o token seja inválido ou expirado
             throw new Error("Token inválido ou expirado");

@@ -12,7 +12,7 @@ export async function getUsers(req, res) {
 }
 
 export async function createUser(req, res) {
-    const { name, email, phone, isAdmin, password } = req.body;
+    const { name, email, phone, password } = req.body;
 
     try {
         const validation = userSchema.safeParse(req.body);
@@ -40,7 +40,6 @@ export async function createUser(req, res) {
             name,
             email,
             phone,
-            isAdmin,
             password
         );
         res.status(201).json(newUser);

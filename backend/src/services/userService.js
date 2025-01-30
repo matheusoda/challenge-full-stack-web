@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export class UserService {
     // Servico que cria um novo usuario
-    static async createUser(name, email, phone, isAdmin, password) {
+    static async createUser(name, email, phone, password) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await prisma.user.create({
             data: {
@@ -15,7 +15,6 @@ export class UserService {
                 name,
                 email,
                 phone,
-                isAdmin,
                 password: hashedPassword
             }
         });
