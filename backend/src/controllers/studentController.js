@@ -11,6 +11,16 @@ export async function getStudents(req, res) {
     }
 }
 
+export async function getStudentById(req, res) {
+    try {
+        const { id } = req.params;
+        const students = await StudentService.getStudentById(id);
+        res.json(students);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching student" });
+    }
+}
+
 export async function createStudent(req, res) {
     const { name, email, ra, cpf} = req.body;
 
