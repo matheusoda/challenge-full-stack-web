@@ -26,21 +26,25 @@ const users = [
 const students = [
     {
         name: "Paula Souza",
+        email: "paula@mail.com",
         ra: "101253",
         cpf: "12199999999"
     },
     {
         name: "João Souza",
+        email: "paula@mail.com",
         ra: "111687",
         cpf: "12299999999"
     },
     {
         name: "Marina Miranda",
+        email: "paula@mail.com",
         ra: "111365",
         cpf: "12399999999"
     },
     {
         name: "Mauricio Souza",
+        email: "paula@mail.com",
         ra: "101299",
         cpf: "12499999999"
     }
@@ -79,6 +83,7 @@ async function main() {
                 data: {
                     id: randomUUID(),
                     name: student.name,
+                    email: student.email,
                     ra: student.ra,
                     cpf: student.cpf,
                 }
