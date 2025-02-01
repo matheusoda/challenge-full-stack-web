@@ -54,6 +54,7 @@ export async function createStudent(req, res) {
         );
         res.status(201).json(newStudent);
     } catch (error) {
+        console.log('ERRO:', error)
         res.status(500).json({ error: "Error creating student" });
     }
 }
@@ -63,7 +64,7 @@ export async function updateStudent(req, res) {
     const { name, email, ra, cpf } = req.body;
 
     try {
-        const validation = studentUpdateSchema.safeParse(req.body);
+        const validation = studentSchema.safeParse(req.body);
 
         if (!validation.success) {
             res.status(400).json({
@@ -104,13 +105,6 @@ export async function deleteStudent(req, res) {
 const studentSchema = z.object({
     name: z.string().min(2, "O nome precisa ter pelo menos 2 caracteres."),
     email: z.string().email("Formato de e-mail inválido."),
-    ra: z.string().min(),
-    cpf: z.string().optional()
-});
-
-const studentUpdateSchema = z.object({
-    name: z.string().min(2, "O nome precisa ter pelo menos 2 caracteres."),
-    email: z.string().email("Formato de e-mail inválido."),
-    ra: z.string().optional(),
-    cpf: z.string().optional()
+    ra: z.string(),
+    cpf: z.string()
 });
