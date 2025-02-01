@@ -43,6 +43,9 @@ Embora a documentação básica esteja presente, um guia mais detalhado de como 
 ### Gestão de Erros: 
 Melhoraria o tratamento de erros no back-end, implementando uma solução mais robusta para o gerenciamento de exceções e erros, e exibindo mensagens mais claras para os desenvolvedores e usuários finais.
 
+### Testes Automatizados:
+Os testes automatizados ainda não foram implementados. Com mais tempo, adicionaria testes unitários e de integração utilizando Vue Test Utils e Jest para validar a funcionalidade dos componentes e a interação com o back-end, garantindo maior confiabilidade e manutenção do sistema.
+
 ### Front-end Responsivo: 
 Por mais que a aplicação esteja funcional, ainda seria necessário melhorar a responsividade e o design para se adaptar a nos diferentes tamanhos de tela e de dispositivos.
 
