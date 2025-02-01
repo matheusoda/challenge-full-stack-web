@@ -151,7 +151,6 @@ export default {
     watch(feedbackDialog, (newValue) => {
       if (!newValue) {
         router.push('/')
-        window.location.reload()
       }
     })
 
