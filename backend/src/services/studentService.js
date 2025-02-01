@@ -12,7 +12,7 @@ export class StudentService {
                 id: randomUUID(),
                 name,
                 email,
-                ra, 
+                ra,
                 cpf
             }
         });
@@ -32,6 +32,13 @@ export class StudentService {
 
     // Servico que atualiza dados de um estudante
     static async updateStudent(id, data) {
+        const studentExists = await prisma.student.findUnique({
+            where: { id }
+        });
+        if (!studentExists) {
+            throw new Error("Student not found");
+        }
+
         return prisma.student.update({
             where: { id },
             data
@@ -40,6 +47,12 @@ export class StudentService {
 
     // Servico que exclui um estudante
     static async deleteStudent(id) {
+        const studentExists = await prisma.student.findUnique({
+            where: { id }
+        });
+        if (!studentExists) {
+            throw new Error("Student not found");
+        }
         return prisma.student.delete({ where: { id } });
     }
 }
