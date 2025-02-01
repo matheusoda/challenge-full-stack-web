@@ -16,6 +16,7 @@ datasource db {
 model Student {
   id    String @id @default(uuid())  
   name  String
+  email String
   ra    String @unique
   cpf   String @unique
   createdAt DateTime @default(now())
