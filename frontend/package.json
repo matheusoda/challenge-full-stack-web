@@ -14,12 +14,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@pinia/testing": "^1.0.2",
     "axios": "^1.10.0",
     "mdi": "^2.2.43",
     "pinia": "^3.0.3",
     "vee-validate": "^4.15.1",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1",
+    "vue-the-mask": "^0.11.1",
     "vuetify": "^3.9.2",
     "yup": "^1.6.1"
   },
@@ -27,6 +29,7 @@
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.15.32",
+    "@types/vue-the-mask": "^0.11.5",
     "@types/yup": "^0.29.14",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitest/eslint-plugin": "^1.2.7",
