@@ -1,5 +1,8 @@
 // src/plugins/vuetify.ts
 import { createVuetify } from 'vuetify'
+import '@mdi/font/css/materialdesignicons.css'
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+
 import 'vuetify/styles'
 import {
   VAlert,
@@ -13,6 +16,7 @@ import {
   VCardTitle,
   VContainer,
   VDataTable,
+  VDataTableServer,
   VDialog,
   VForm,
   VNavigationDrawer,
@@ -22,6 +26,7 @@ import {
 export default createVuetify({
   components: {
     VDataTable,
+    VDataTableServer,
     VBtn,
     VContainer,
     VCard,
@@ -36,6 +41,13 @@ export default createVuetify({
     VAlert,
     VCardText,
     VDialog,
+  },
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    },
   },
   theme: {
     defaultTheme: 'light', // ou 'dark' para tema escuro
