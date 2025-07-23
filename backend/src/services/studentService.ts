@@ -25,6 +25,51 @@ export class StudentService {
         return prisma.student.findMany();
     }
 
+    static async getPaginatedStudents(page: number, limit: number, search: string) {
+        const skip = (page - 1) * limit;
+
+        const where: Prisma.StudentWhereInput = search
+            ? {
+                OR: [
+                    {
+                        name: {
+                            contains: search,
+                            mode: Prisma.QueryMode.insensitive,
+                        },
+                    },
+                    {
+                        ra: {
+                            contains: search,
+                            mode: Prisma.QueryMode.insensitive,
+                        },
+                    },
+                ],
+            }
+            : {}
+
+        const [students, total] = await Promise.all([
+            prisma.student.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: { createdAt: 'desc' }, // opcional
+            }),
+            prisma.student.count({ where }),
+        ]);
+
+        const totalPages = Math.ceil(total / limit);
+
+        return {
+            data: students,
+            meta: {
+                page,
+                limit,
+                total,
+                totalPages,
+            },
+        };
+    }
+
     // Servico que busca estudante por ID
     static async getStudentById(id: string) {
         return prisma.student.findUnique({ where: { id } });

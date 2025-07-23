@@ -24,7 +24,6 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                 message: err.message
             }))
             throw new ApiError("Erro de validação", 400, errors);
-            // return;
         }
 
         const users = await UserService.getAllUser();
@@ -34,8 +33,6 @@ export async function createUser(req: Request, res: Response, next: NextFunction
 
         if (emailAlreadyRegister.length) {
             throw new ConflictError("E-mail já está em uso");
-            // res.status(400).json({ error: "E-mail already in use" });
-            // return;
         }
 
         const newUser = await UserService.createUser(
@@ -47,8 +44,6 @@ export async function createUser(req: Request, res: Response, next: NextFunction
         res.status(201).json(newUser);
     } catch (error) {
         next(error);
-        // throw new ApiError("Error creating user", 500);
-        // res.status(500).json({ error: "Error creating user" });
     }
 }
 

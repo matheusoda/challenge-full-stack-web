@@ -7,7 +7,12 @@ import { ApiError, ConflictError } from "../errors/apiError";
 
 export async function getStudents(req: Request, res: Response, next: NextFunction) {
 	try {
-		const students = await StudentService.getAllStudent();
+		const page = parseInt(req.query.page as string) || 1;
+		const limit = parseInt(req.query.limit as string) || 10;
+		const search = (req.query.search as string) || '';
+
+		const students = await StudentService.getPaginatedStudents(page, limit, search);
+
 		res.json(students);
 	} catch (error) {
 		next(new ApiError("Erro ao buscar estudantes", 500));
@@ -37,8 +42,12 @@ export async function createStudent(req: Request, res: Response, next: NextFunct
 			throw new ApiError("Erro de validação", 400, errors);
 		}
 
-		const students = await StudentService.getAllStudent();
-		const emailAlreadyRegister = students.filter(
+		const page = parseInt(req.query.page as string) || 1;
+		const limit = parseInt(req.query.limit as string) || 10;
+		const search = (req.query.search as string) || '';
+
+		const students = await StudentService.getPaginatedStudents(page, limit, search);
+		const emailAlreadyRegister = students.data.filter(
 			(student: Student) => student.email === email
 		);
 

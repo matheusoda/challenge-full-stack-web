@@ -2,16 +2,16 @@
 import { NextFunction, Request, Response } from "express";
 import authService from "../services/authService";
 import { JwtPayload } from "jsonwebtoken";
+import { UnauthorizedError } from "../errors/apiError";
 
 interface AuthenticatedRequest extends Request {
     user?: string | JwtPayload;
-  }
+}
 
-export function authMiddleware(req: AuthenticatedRequest , res: Response, next: NextFunction) {
+export function authMiddleware(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        res.status(401).json({ message: "Token não fornecido" });
-        return;
+        throw new UnauthorizedError("Token não fornecido");
     }
 
     const token = authHeader.split(" ")[1];
@@ -20,8 +20,7 @@ export function authMiddleware(req: AuthenticatedRequest , res: Response, next: 
         const decoded = authService.verifyToken(token);
         req.user = decoded;
         next();
-    } catch (error) {
-        res.status(403).json({ message: "Token inválido ou expirado" });
-        return;
+    } catch (err) {
+        next(err);
     }
 }
